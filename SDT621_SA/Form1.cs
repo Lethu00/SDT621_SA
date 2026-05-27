@@ -23,7 +23,6 @@ namespace SDT621_SA
             btnDisplay.Click += BtnDisplay_Click;
         }
 
-
         private void BtnDisplay_Click(object sender, EventArgs e)
         {
             string name = txtName.Text;
