@@ -1,4 +1,4 @@
-namespace SDT621_SA
+namespace Section_B___Q2
 {
     internal static class Program
     {

@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="SDT621_SA/Section B - Q2.csproj" />
+  <Project Path="Section B - Q2/Section B - Q2.csproj" />
   <Project Path="Section B - Q1/Section B - Q1.csproj" />
   <Project Path="Section C/Section C.csproj" />
   <Project Path="Section C.Tests/Section C.Tests.csproj" />

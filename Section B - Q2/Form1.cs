@@ -1,4 +1,4 @@
-namespace SDT621_SA
+namespace Section_B___Q2
 {
     public partial class Form1 : Form
     {
