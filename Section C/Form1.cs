@@ -9,23 +9,37 @@ namespace Section_C
         private TextBox txtMake;
         private Label lblQuantity;
         private TextBox txtQuantity;
+        private Button btnAdd;
+        private Button btnDelete;
+        private Button btnFind;
+        private readonly MobilePhoneService mobilePhoneService;
 
         public Form1()
         {
             InitializeComponent();
+            mobilePhoneService = new MobilePhoneService(new MobilePhoneTableRepository());
 
-            lblOutput = new Label() { Location = new Point(150, 50), Width = 400 };
-            lblCode = new Label() { Text = "Enter the code:", Location = new Point(150, 150) };
-            txtCode = new TextBox() { Location = new Point(150, 180), Width = 200 };
-            lblMake = new Label() { Text = "Enter the make:", Location = new Point(150, 210) };
-            txtMake = new TextBox() { Location = new Point(150, 240), Width = 200 };
-            lblQuantity = new Label() { Text = "Enter the quantity:", Location = new Point(150, 270) };
-            txtQuantity = new TextBox() { Location = new Point(150, 300), Width = 200 };
+            lblOutput = new Label()
+            {
+                BorderStyle = BorderStyle.FixedSingle,
+                Location = new Point(120, 35),
+                TextAlign = ContentAlignment.MiddleLeft,
+                Width = 400,
+                Height = 36
+            };
 
-            Button btnAdd = new Button() { Text = "Add", Location = new Point(360, 180), Height = 35 };
-            Button btnDelete = new Button() { Text = "Delete", Location = new Point(360, 240), Height = 35 };
-            Button btnFind = new Button() { Text = "Find", Location = new Point(360, 300), Height = 35 };
+            lblCode = new Label() { Text = "Mobile Code", Location = new Point(145, 120), Width = 110, Height = 25 };
+            txtCode = new TextBox() { Location = new Point(300, 116), Width = 180, Height = 27 };
+            lblMake = new Label() { Text = "Make", Location = new Point(145, 170), Width = 110, Height = 25 };
+            txtMake = new TextBox() { Location = new Point(300, 166), Width = 180, Height = 27 };
+            lblQuantity = new Label() { Text = "Quantity", Location = new Point(145, 220), Width = 110, Height = 25 };
+            txtQuantity = new TextBox() { Location = new Point(300, 216), Width = 180, Height = 27 };
 
+            btnAdd = new Button() { Text = "Add", Location = new Point(95, 310), Width = 110, Height = 40 };
+            btnDelete = new Button() { Text = "Delete", Location = new Point(280, 310), Width = 110, Height = 40 };
+            btnFind = new Button() { Text = "Find", Location = new Point(465, 310), Width = 110, Height = 40 };
+
+            this.Controls.Add(lblOutput);
             this.Controls.Add(lblCode);
             this.Controls.Add(txtCode);
             this.Controls.Add(lblMake);
@@ -41,39 +55,19 @@ namespace Section_C
             btnFind.Click += BtnFind_Click;
         }
     
-        private void BtnAdd_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object? sender, EventArgs e)
         {
-            string code = txtCode.Text;
-            string make = txtMake.Text;
-            string quantity = txtQuantity.Text;
-            if (string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(make) || string.IsNullOrWhiteSpace(quantity))
-            {
-                MessageBox.Show("Please fill in all fields.");
-                return;
-            }
-            lblOutput.Text = $"Added: Code={code}, Make={make}, Quantity={quantity}";
+            lblOutput.Text = mobilePhoneService.Add(txtCode.Text, txtMake.Text, txtQuantity.Text);
         }
 
-        private void BtnDelete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object? sender, EventArgs e)
         {
-            string code = txtCode.Text;
-            if (string.IsNullOrWhiteSpace(code))
-            {
-                MessageBox.Show("Please enter a code.");
-                return;
-            }
-            lblOutput.Text = $"Deleted: Code={code}";
+            lblOutput.Text = mobilePhoneService.Delete(txtCode.Text, txtQuantity.Text);
         }
 
-        private void BtnFind_Click(object sender, EventArgs e)
+        private void BtnFind_Click(object? sender, EventArgs e)
         {
-            string code = txtCode.Text;
-            if (string.IsNullOrWhiteSpace(code))
-            {
-                MessageBox.Show("Please enter a code.");
-                return;
-            }
-            lblOutput.Text = $"Found: Code={code}";
+            lblOutput.Text = mobilePhoneService.Find(txtCode.Text);
         }
     }
 }
